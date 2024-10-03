@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Product Scraper</h2>
+
+        <label for="amazonUrl">Enter the product URL of Amazon:</label>
+        <input type="text" id="amazonUrl" placeholder="Amazon Product URL">
+
+        <button onclick="getAmazonData()">Get Amazon Data</button>
+
+        <label for="flipkartUrl">Enter the product URL of Flipkart:</label>
+        <input type="text" id="flipkartUrl" placeholder="Flipkart Product URL">
+
+        <button onclick="getFlipkartData()">Get Flipkart Data</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function getAmazonData() {
+            var amazonUrl = document.getElementById('amazonUrl').value;
+            fetch('/amazon?product_url=' + encodeURIComponent(amazonUrl))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerHTML = data;
+                });
+        }
+
+        function getFlipkartData() {
+            var flipkartUrl = document.getElementById('flipkartUrl').value;
+            fetch('/flipkart?product_url=' + encodeURIComponent(flipkartUrl))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerHTML = data;
+                });
+        }
+    </script>
+
+</body>
+</html>
